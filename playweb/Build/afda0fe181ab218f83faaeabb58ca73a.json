@@ -1,0 +1,17 @@
+{
+"companyName": "DefaultCompany",
+"productName": "Alien Worlds",
+"productVersion": "0.1",
+"dataUrl": "818297662824c98e56489ddaf90151cd.unityweb",
+"wasmCodeUrl": "5c842bbb25cc5e893bf116f53bcacb62.unityweb",
+"wasmFrameworkUrl": "03088546380646c24de2d96d98efda13.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"backgroundUrl": "fff2a664dc06d7254246c6bb8d5d0e21.jpg",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#FFFFFF",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.22f1"
+}

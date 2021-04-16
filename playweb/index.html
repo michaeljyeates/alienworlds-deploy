@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">  
+    <meta name="apple-mobile-web-app-capable" content="yes" />  
+    <link rel="manifest" href="/manifest.json">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Alien Worlds</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
+    <link rel="stylesheet" href="TemplateData/style.css" />
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="waxjs.js"></script>
+    <style>
+      body {
+        margin: 0px;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        position: fixed;
+        overflow: hidden;
+      }
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="webgl-content">
+      <div id="unityContainer" style="width: 100vw; height: 100vh"></div>
+    </div>
+  </body>
+
+  <script src="Build/061f463856577255fb5eefaf73e67127.js"></script>
+  <script src="bundle.js"></script>
+  <script src="hashes.js"></script>
+  <script src="message_handler.js"></script>
+  <script>
+    // Initial screen setup
+    unityContainer.style.height = window.innerHeight + "px";
+    unityInstance = UnityLoader.instantiate(
+      "unityContainer",
+      "Build/bd2a2f07495f744fece3ee93c4a56908.json",
+      { onProgress: UnityProgress }
+    );
+
+    function Resize() {
+      document.getElementById('unityContainer').style.width =
+          window.innerWidth + 'px';
+        document.getElementById('unityContainer').style.height =
+          window.innerHeight + 'px';
+
+
+       if (UnityLoader.SystemInfo.mobile) {
+        if (navigator.userAgent.indexOf('Android') != -1)
+        {
+          if (screen.width > screen.height) {
+            unityInstance.SendMessage("Canvas", "SetScreenModePanel", "false");
+          }
+          else
+          {
+            unityInstance.SendMessage("Canvas", "SetScreenModePanel", "true");
+          }
+        }
+        else
+        {
+          switch (window.orientation) {
+          case -90:
+          case 90:
+            unityInstance.SendMessage('Canvas', 'SetScreenModePanel', 'false');
+            break;
+          default:
+            unityInstance.SendMessage('Canvas', 'SetScreenModePanel', 'true');
+
+            break;
+          }
+        }
+      } 
+    }
+
+    /*function Fullscreen() {
+      unityInstance.SetFullscreen(1);
+      if (navigator.userAgent.indexOf('Android') != -1)
+        window.screen.orientation.lock('landscape');
+    }*/
+
+    window.addEventListener('orientationchange', Resize);
+
+    // Initial execution if needed
+    //Resize();
+  </script>
+</html>
