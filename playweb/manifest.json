@@ -1,8 +1,0 @@
-{
-  "name": "Alien Worlds",
-  "short_name": "Alien Worlds",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#f00",
-  "description": "Alien worlds stuff"
-}
