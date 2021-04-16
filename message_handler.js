@@ -2,7 +2,7 @@ var gameLoaded = false;
 var log = "";
 var logDownloaded = false;
 
-const wax = new waxjs.WaxJS('https://wax.greymass.com');
+const wax = new waxjs.WaxJS('https://wax.eosdac.io');
 
 async function server_login() {
     try {
