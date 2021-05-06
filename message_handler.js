@@ -503,6 +503,23 @@ async function server_claim2 (mining_account1, account, account_permission, mine
   }
 }
 
+async function server_getBounty (transaction_id, account, hyperion_endpoints) {
+  try {
+    const claimBounty = await getBountyFromTx(transaction_id,account, hyperion_endpoints);
+    unityInstance.SendMessage(
+      'Controller',
+      'Server_Response_GetBounty',
+       claimBounty.toString()
+    );
+  } catch (error) {
+    unityInstance.SendMessage(
+      'ErrorHandler',
+      'Server_Response_SetErrorData',
+      error.message
+    );
+  }
+}
+
 async function server_getBalance(account) {
   try {
     var data = await getBalance(account, wax.api.rpc);
@@ -545,6 +562,7 @@ async function server_stake(account, planet_name, quantity) {
     );
   }
 }
+
 
 async function server_unstake(account, planet_name, quantity) {
   try {
