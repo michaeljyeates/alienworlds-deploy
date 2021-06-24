@@ -19,7 +19,7 @@ async function server_login() {
       readError(error.message)
     );
     }
-  }
+  } 
 
 async function onGameLoaded() {
   try {
