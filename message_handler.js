@@ -127,7 +127,7 @@ async function server_getPlayerData(account) {
       federation_account,
       account,
       wax.api.rpc,
-      aa_api
+      api_endpoints
     );
     unityInstance.SendMessage(
       'Controller',
@@ -159,11 +159,10 @@ async function server_setLand(account, land_id) {
 async function server_getLand(account) {
   try {
     var data = await getLand(
-      federation_account,
       mining_account,
       account,
       wax.api.rpc,
-      aa_api
+      api_endpoints
     );
     unityInstance.SendMessage(
       'Controller',
@@ -179,9 +178,28 @@ async function server_getLand(account) {
   }
 }
 
+async function server_getAssetById(land_id) {
+  try {
+    var data = await getAssetById(land_id, api_endpoints, wax.api.rpc);
+    unityInstance.SendMessage(
+      'Controller',
+      'Server_Response_GetLandById',
+      JSON.stringify(data)
+    );
+  } catch (error) {
+    unityInstance.SendMessage(
+      'ErrorHandler',
+      'Server_Response_SetErrorData',
+      error.message
+    );
+  }
+}
+
+
 async function server_getLandById(land_id) {
   try {
-    var data = await getLandById(federation_account, land_id, wax.api.rpc, aa_api);
+//    var data = await getLandById(federation_account, land_id, wax.api.rpc, aa_api);
+    var data = await getAssetById(land_id, api_endpoints, wax.api.rpc);
     unityInstance.SendMessage(
       'Controller',
       'Server_Response_GetLandById',
@@ -263,7 +281,8 @@ async function server_setBag(account, bag) {
 
 async function server_getBag(account) {
   try {
-    var data = await getBag(mining_account, account, wax.api.rpc, aa_api);
+//    var data = await getBag(mining_account, account, wax.api.rpc, aa_api);
+    var data = await getBag(mining_account, account, wax.api.rpc, api_endpoints);
     unityInstance.SendMessage(
       'Controller',
       'Server_Response_GetBag',
@@ -280,13 +299,15 @@ async function server_getBag(account) {
 
 const getMineDelay = async function (account) {
   try {
-    const bag = await getBag(mining_account, account, wax.api.rpc, aa_api);
+//    const bag = await getBag(mining_account, account, wax.api.rpc, aa_api);
+    const bag = await getBag(mining_account, account, wax.api.rpc, api_endpoints);
     const land = await getLand(
-      federation_account,
+//      federation_account,
       mining_account,
       account,
       wax.api.rpc,
-      aa_api
+      api_endpoints
+//      aa_api
     );
     const params = getBagMiningParams(bag);
     const land_params = getLandMiningParams(land);
@@ -323,7 +344,8 @@ async function server_getMineDelay(account) {
 
 const getBagDifficulty = async function (account) {
   try {
-    const bag = await getBag(mining_account, account, wax.api.rpc, aa_api);
+//    const bag = await getBag(mining_account, account, wax.api.rpc, aa_api);
+    const bag = await getBag(mining_account, account, wax.api.rpc, api_endpoints);
     const params = getBagMiningParams(bag);
     return params.difficulty;
   } catch (error) {
@@ -334,11 +356,12 @@ const getBagDifficulty = async function (account) {
 const getLandDifficulty = async function (account) {
   try {
     const land = await getLand(
-      federation_account,
+//      federation_account,
       mining_account,
       account,
       wax.api.rpc,
-      aa_api
+      api_endpoints
+//      aa_api
     );
     const params = getLandMiningParams(land);
     return params.difficulty;
@@ -563,7 +586,6 @@ async function server_stake(account, planet_name, quantity) {
   }
 }
 
-
 async function server_unstake(account, planet_name, quantity) {
   try {
     if (planet_name === undefined || planet_name === '')
@@ -659,7 +681,7 @@ async function server_subscribe(account) {
 
 async function server_getAssets(account, schema) {
   try {
-    var assets = await getAssets(account, atomic_endpoint, collection, schema);
+    var assets = await getAssets(account, api_endpoints, wax.api.rpc, schema);
     var data = { schema: schema, assets: assets };
     unityInstance.SendMessage(
       'Controller',
